@@ -1,0 +1,224 @@
+-- Pull in the wezterm API
+local wezterm = require 'wezterm'
+local act = wezterm.action
+
+-- This will hold the configuration.
+local config = wezterm.config_builder()
+local font_name = "0xProto Nerd Font"
+
+-- This is where you actually apply your config choices.
+
+-- For example, changing the initial geometry for new windows:
+config.initial_cols = 120
+config.initial_rows = 28
+config.font_size = 10
+config.color_scheme = 'Foxnightly (Gogh)'
+-- config.window_background_image = '/mnt/c/Users/kunal/Downloads/daniil-silantev-bZM8iVXjFaQ-unsplash.jpg'
+config.background = {
+    {
+        source = {File = {path = 'C:/Users/kunal/Downloads/daniil-silantev-bZM8iVXjFaQ-L-unsplash.jpg'}},
+        opacity = 1,
+        width = "100%",
+    }
+}
+
+-- Wezterm default domain to connect to WSL
+config.default_domain = "WSL:Ubuntu-22.04"
+
+-- OpenGL for GPU acceleration, Software for CPU
+config.front_end = "OpenGL"
+
+config.enable_tab_bar = true
+config.hide_tab_bar_if_only_one_tab = true
+config.automatically_reload_config = true
+-- config.window_background_opacity = 1.0
+
+-- Key Bindings
+-- config.disable_default_key_bindings = true
+config.keys = {
+    -- { key = 'v', mods = 'CMD|CTRL', action = act.PasteFrom 'Clipboard' },
+    { key = 'v', mods = 'CTRL', action = act.PasteFrom 'PrimarySelection' },
+    { key = 'c', mods = 'CTRL', action = act.DisableDefaultAssignment },
+    { key = 'c', mods = 'CTRL', action = act.CopyTo 'ClipboardAndPrimarySelection' },
+    { key = 't', mods = 'ALT', action = act.SpawnTab 'DefaultDomain' },
+}
+
+-- Finally, return the configuration to wezterm:
+return config
+
+-- local mux = wezterm.mux
+-- local act = wezterm.action
+
+-- local function font_with_fallback(name, params)
+-- 	local names = { name, "Apple Color Emoji", "azuki_font" }
+-- 	return wezterm.font_with_fallback(names, params)
+-- end
+
+-- return {
+
+-- 	-- Font config
+-- 	font = font_with_fallback(font_name),
+-- 	font_rules = {
+-- 		{
+-- 			italic = true,
+-- 			font = font_with_fallback(font_name, { italic = true }),
+-- 		},
+-- 		{
+-- 			italic = true,
+-- 			intensity = "Bold",
+-- 			font = font_with_fallback(font_name, { italic = true, bold = true }),
+-- 		},
+-- 		{
+-- 			intensity = "Bold",
+-- 			font = font_with_fallback(font_name, { bold = true }),
+-- 		},
+-- 	},
+-- 	audible_bell = "Disabled",
+-- 	warn_about_missing_glyphs = false,
+-- 	scrollback_lines = 10000,
+-- 	font_size = 11,
+-- 	line_height = 1.0,
+
+-- 	animation_fps = 30,
+
+-- 	-- Cursor style
+-- 	default_cursor_style = "BlinkingBlock",
+
+-- 	-- X11
+-- 	enable_wayland = false,
+
+-- 	-- Keybinds
+-- 	disable_default_key_bindings = true,
+-- 	keys = {
+-- 		{
+-- 			key = [[\]],
+-- 			mods = "CTRL|ALT",
+-- 			action = wezterm.action({
+-- 				SplitHorizontal = { domain = "CurrentPaneDomain" },
+-- 			}),
+-- 		},
+-- 		{
+-- 			key = [[\]],
+-- 			mods = "CTRL",
+-- 			action = wezterm.action({
+-- 				SplitVertical = { domain = "CurrentPaneDomain" },
+-- 			}),
+-- 		},
+-- 		{
+-- 			key = "q",
+-- 			mods = "CTRL",
+-- 			action = wezterm.action({ CloseCurrentPane = { confirm = false } }),
+-- 		},
+-- 		{
+-- 			key = "h",
+-- 			mods = "CTRL|SHIFT",
+-- 			action = wezterm.action({ ActivatePaneDirection = "Left" }),
+-- 		},
+-- 		{
+-- 			key = "l",
+-- 			mods = "CTRL|SHIFT",
+-- 			action = wezterm.action({ ActivatePaneDirection = "Right" }),
+-- 		},
+-- 		{
+-- 			key = "k",
+-- 			mods = "CTRL|SHIFT",
+-- 			action = wezterm.action({ ActivatePaneDirection = "Up" }),
+-- 		},
+-- 		{
+-- 			key = "j",
+-- 			mods = "CTRL|SHIFT",
+-- 			action = wezterm.action({ ActivatePaneDirection = "Down" }),
+-- 		},
+-- 		{
+-- 			key = "h",
+-- 			mods = "CTRL|SHIFT|ALT",
+-- 			action = wezterm.action({ AdjustPaneSize = { "Left", 1 } }),
+-- 		},
+-- 		{
+-- 			key = "l",
+-- 			mods = "CTRL|SHIFT|ALT",
+-- 			action = wezterm.action({ AdjustPaneSize = { "Right", 1 } }),
+-- 		},
+-- 		{
+-- 			key = "k",
+-- 			mods = "CTRL|SHIFT|ALT",
+-- 			action = wezterm.action({ AdjustPaneSize = { "Up", 1 } }),
+-- 		},
+-- 		{
+-- 			key = "j",
+-- 			mods = "CTRL|SHIFT|ALT",
+-- 			action = wezterm.action({ AdjustPaneSize = { "Down", 1 } }),
+-- 		},
+-- 		{ -- browser-like bindings for tabbing
+-- 			key = "t",
+-- 			mods = "CTRL",
+-- 			action = wezterm.action({ SpawnTab = "CurrentPaneDomain" }),
+-- 		},
+-- 		{
+-- 			key = "w",
+-- 			mods = "CTRL",
+-- 			action = wezterm.action({ CloseCurrentTab = { confirm = false } }),
+-- 		},
+-- 		{
+-- 			key = "Tab",
+-- 			mods = "CTRL",
+-- 			action = wezterm.action({ ActivateTabRelative = 1 }),
+-- 		},
+-- 		{
+-- 			key = "Tab",
+-- 			mods = "CTRL|SHIFT",
+-- 			action = wezterm.action({ ActivateTabRelative = -1 }),
+-- 		}, -- standard copy/paste bindings
+-- 		{
+-- 			key = "x",
+-- 			mods = "CTRL",
+-- 			action = "ActivateCopyMode",
+-- 		},
+-- 	},
+
+-- 	-- Aesthetic Night Colorscheme
+-- 	bold_brightens_ansi_colors = true,
+-- 	colors = {
+-- 		foreground = "#edeff0",
+-- 		background = "#0c0e0f",
+-- 		cursor_bg = "#edeff0",
+-- 		cursor_fg = "#edeff0",
+-- 		cursor_border = "#232526",
+-- 		selection_fg = "#0c0e0f",
+-- 		selection_bg = "#edeff0",
+-- 		scrollbar_thumb = "#edeff0",
+-- 		split = "#090909",
+-- 		ansi = { "#232526", "#df5b61", "#78b892", "#de8f78", "#6791c9", "#bc83e3", "#67afc1", "#e4e6e7" },
+-- 		brights = { "#2c2e2f", "#e8646a", "#81c19b", "#e79881", "#709ad2", "#c58cec", "#70b8ca", "#f2f4f5" },
+-- 		indexed = { [136] = "#edeff0" },
+-- 		tab_bar = {
+-- 			active_tab = {
+-- 				bg_color = "#0c0e0f",
+-- 				fg_color = "#edeff0",
+-- 				italic = true,
+-- 			},
+-- 			inactive_tab = { bg_color = "#090909", fg_color = "#0c0e0f" },
+-- 			inactive_tab_hover = { bg_color = "#151515", fg_color = "#090909" },
+-- 			new_tab = { bg_color = "#151515", fg_color = "#090909" },
+-- 			new_tab_hover = { bg_color = "#6791c9", fg_color = "#090909" },
+-- 		},
+-- 	},
+
+-- 	-- Padding
+-- 	window_padding = {
+-- 		left = 0,
+-- 		right = 0,
+-- 		top = 0,
+-- 		bottom = 0,
+-- 	},
+
+-- 	-- Tab Bar
+-- 	show_tab_index_in_tab_bar = false,
+-- 	tab_bar_at_bottom = true,
+
+-- 	-- General
+-- 	inactive_pane_hsb = { saturation = 1.0, brightness = 1.0 },
+-- 	window_background_opacity = 1.0,
+-- 	window_close_confirmation = "NeverPrompt",
+-- 	window_frame = { active_titlebar_bg = "#090909", font = font_with_fallback(font_name, { bold = true }) },
+-- }

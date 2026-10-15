@@ -21,7 +21,7 @@ fi
 echo "Installing tree and curl packages..."
 sudo apt install tree curl
 
-echo $resolution
-#xrandr --output Virtual1 --size 1920x1080
-display_name=`xrandr | grep "connected primary" | cut -d' ' -f1`
-echo "${display_name}"
+# echo $resolution
+# #xrandr --output Virtual1 --size 1920x1080
+# display_name=`xrandr | grep "connected primary" | cut -d' ' -f1`
+# echo "${display_name}"
