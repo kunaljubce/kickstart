@@ -11,9 +11,8 @@ local font_name = "0xProto Nerd Font"
 -- For example, changing the initial geometry for new windows:
 config.initial_cols = 120
 config.initial_rows = 28
-config.font_size = 10
+config.font_size = 9.25
 config.color_scheme = 'Foxnightly (Gogh)'
--- config.window_background_image = '/mnt/c/Users/kunal/Downloads/daniil-silantev-bZM8iVXjFaQ-unsplash.jpg'
 config.background = {
     {
         source = {File = {path = 'C:/Users/kunal/Downloads/daniil-silantev-bZM8iVXjFaQ-L-unsplash.jpg'}},
