@@ -13,16 +13,27 @@ config.initial_cols = 120
 config.initial_rows = 28
 config.font_size = 9.25
 config.color_scheme = 'Foxnightly (Gogh)'
+
+-- Background image: kickstart assets on macOS, Downloads folder on Windows
+local background_path = wezterm.target_triple:find("darwin")
+    and wezterm.home_dir .. '/Documents/constant_variables/kickstart/assets/daniil-silantev-bZM8iVXjFaQ-L-unsplash.jpg'
+    or 'C:/Users/kunal/Downloads/daniil-silantev-bZM8iVXjFaQ-L-unsplash.jpg'
+
 config.background = {
     {
-        source = {File = {path = 'C:/Users/kunal/Downloads/daniil-silantev-bZM8iVXjFaQ-L-unsplash.jpg'}},
+        source = {File = {path = background_path}},
         opacity = 1,
         width = "100%",
     }
 }
 
--- Wezterm default domain to connect to WSL
-config.default_domain = "WSL:Ubuntu-22.04"
+-- Wezterm default domain: native local shell on macOS, WSL elsewhere (Windows)
+if wezterm.target_triple:find("darwin") then
+    config.default_domain = "local"
+    config.font_size = 13
+else
+    config.default_domain = "WSL:Ubuntu-22.04"
+end
 
 -- OpenGL for GPU acceleration, Software for CPU
 config.front_end = "OpenGL"
